@@ -47,7 +47,7 @@ jobs:
         testResultsFiles: '**\rostest-*.xml'
         searchFolder: $(System.DefaultWorkingDirectory)/ros_home
       condition: always()
-  - ${{ if eq(variables['Agent.OS'], 'Windows_NT') }}:
+  - ${{ if eq(variables['Agent.OS'], 'Linux') }}:
     - checkout: self
       submodules: recursive
     - script: |
