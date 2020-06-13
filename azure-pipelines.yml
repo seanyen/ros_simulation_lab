@@ -47,3 +47,21 @@ jobs:
         testResultsFiles: '**\rostest-*.xml'
         searchFolder: $(System.DefaultWorkingDirectory)/ros_home
       condition: always()
+  - ${{ if eq(variables['Agent.OS'], 'Windows_NT') }}:
+    - checkout: self
+      submodules: recursive
+    - script: |
+        pushd catkin_ws
+        source /opt/ros/melodic/setup.sh
+        sudo apt update
+        rosdep update
+        rosdep install --from-paths src --ignore-src -r -y
+        catkin_make
+      displayName: Build ROS Workspace
+    - script: |
+        pushd catkin_ws
+        source /opt/ros/melodic/setup.sh
+        source devel/setup.sh
+        rosnode kill -a
+        rostest demo demo.test
+      displayName: Run ROS Tests
