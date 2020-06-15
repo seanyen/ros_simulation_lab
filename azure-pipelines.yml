@@ -63,12 +63,13 @@ jobs:
       sudo apt update
       rosdep update
       rosdep install --from-paths src --ignore-src -r -y
-      catkin_make run_tests
+      catkin_make
     displayName: Build ROS Workspace
   - script: |
       pushd catkin_ws
       source /opt/ros/melodic/setup.sh
       source devel/setup.sh
+      chmod +x src/demo/nodes/demo.py
       rosnode kill -a
       rostest demo demo.test
     displayName: Run ROS Tests
