@@ -64,7 +64,7 @@ jobs:
       rosdep update
       rosdep install --from-paths src --ignore-src -r -y
       apt install -y python-pip
-      pip install -y circle-fit
+      pip install circle-fit
       catkin_make
     displayName: Build ROS Workspace
   - script: |
