@@ -74,7 +74,5 @@ jobs:
       source devel/setup.sh
       chmod +x src/demo/nodes/demo.py
       rosnode kill -a
-      Xvfb :1 -screen 0 1600x1200x16  &
-      export DISPLAY=:1.0
-      rostest demo demo.test
+      xvfb-run rostest demo demo.test
     displayName: Run ROS Tests
