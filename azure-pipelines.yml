@@ -63,7 +63,8 @@ jobs:
       sudo apt update
       rosdep update
       rosdep install --from-paths src --ignore-src -r -y
-      python -m pip install circle-fit
+      apt install python-pip
+      pip install circle-fit
       catkin_make
     displayName: Build ROS Workspace
   - script: |
