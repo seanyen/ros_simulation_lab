@@ -21,10 +21,10 @@ jobs:
       choco source add -n=ros-win -s="https://roswin.azurewebsites.net/api/v2" --priority=1
       choco install libjpeg-turbo --version=1.5.3.1809242322 -y
   - script: |
-      set
       git submodule update --init
       call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\VsDevCmd.bat" -arch=amd64 -host_arch=amd64
       call "c:\opt\ros\melodic\x64\setup.bat"
+      set
       pushd catkin_ws
       vcpkg install sdl2:x64-windows
       pip install circle-fit
