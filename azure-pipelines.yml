@@ -15,16 +15,9 @@ jobs:
     - Agent.OS -equals Windows_NT
   steps:
   - script: |
-      @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command " [System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
-  - script: |
-      set PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
-      choco source add -n=ros-win -s="https://roswin.azurewebsites.net/api/v2" --priority=1
-      choco install libjpeg-turbo --version=1.5.3.1809242322 -y
-  - script: |
       git submodule update --init
       call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\VsDevCmd.bat" -arch=amd64 -host_arch=amd64
       call "c:\opt\ros\melodic\x64\setup.bat"
-      set
       pushd catkin_ws
       vcpkg install sdl2:x64-windows
       pip install circle-fit
