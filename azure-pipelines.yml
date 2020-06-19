@@ -64,12 +64,11 @@ jobs:
       sudo apt update
       rosdep update
       rosdep install --from-paths src --ignore-src -r -y
-      apt-get install -y xvfb
-      apt install -y python-pip
       pip install circle-fit
       catkin_make
     displayName: Build ROS Workspace
   - script: |
+      export ROS_HOME=$PWD/ros_home
       pushd catkin_ws
       source /opt/ros/melodic/setup.sh
       source devel/setup.sh
@@ -77,3 +76,14 @@ jobs:
       rosnode kill -a
       xvfb-run rostest demo demo.test
     displayName: Run ROS Tests
+  - task: PublishPipelineArtifact@1
+    inputs:
+      path: $(System.DefaultWorkingDirectory)/ros_home
+      artifact: Logs
+    condition: always()
+  - task: PublishTestResults@2
+    inputs:
+      testRunner: 'jUnit'
+      testResultsFiles: '**/rostest-*.xml'
+      searchFolder: $(System.DefaultWorkingDirectory)/ros_home
+    condition: always()
